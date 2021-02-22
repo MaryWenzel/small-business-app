@@ -1,35 +1,87 @@
-import React from "react";
-import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import cookie from "cookie";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-    fontWeight: "bold",
-  },
-  nav: {
-    backgroundColor: "#3db371",
-  },
-}));
+const checkAuth = () => {
+  const cookies = cookie.parse(document.cookie);
+  console.log("looking up cookies");
+  return cookies["loggedIn"] ? true : false;
+};
 
-const Navigation = () => {
-  const classes = useStyles();
+const Navigation = (props) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkAuth() ? setLoggedIn(true) : setLoggedIn(false);
+  }, []);
+
+  const logout = () => {
+    document.cookie = "loggedIn=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+    if (loggedIn) {
+      window.location.replace("/login");
+    }
+  };
 
   return (
-    <div className={classes.root}>
-      <AppBar className={classes.nav} position="static">
+    <div>
+      <AppBar position="relative" style={{ backgroundColor: "#44B952" }}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Small Business DFW
+          <Typography variant="h6" style={{ flexGrow: "1" }}>
+            DFW Small Business
           </Typography>
-          <Button color="inherit">Login</Button>
+          <ul
+            className="nav-list"
+            style={{ listStyleType: "none", display: "flex" }}
+          >
+            <li className="nav-list-item">
+              <Link
+                to="/listings"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <Button color="inherit">Listings</Button>
+              </Link>
+            </li>
+            {loggedIn ? (
+              <li className="nav-list-item">
+                <Link
+                  to="/add"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  <Button color="inherit">Add</Button>
+                </Link>
+              </li>
+            ) : null}
+            <li className="nav-list-item">
+              <Link
+                to="/login"
+                onClick={logout}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <Button color="inherit">{loggedIn ? "Logout" : "Login"}</Button>
+              </Link>
+            </li>
+          </ul>
         </Toolbar>
       </AppBar>
+      {loggedIn ? (
+        <AppBar
+          position="relative"
+          style={{
+            backgroundColor: "#B8B8B8",
+            height: "25px",
+            marginBottom: "50px",
+          }}
+        >
+          <Toolbar style={{ display: "flex", alignItems: "flex-start" }}>
+            <Typography variant="p" style={{ flexGrow: "1" }}>
+              Logged in as: {props.username}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      ) : null}
     </div>
   );
 };

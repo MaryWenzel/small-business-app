@@ -1,20 +1,66 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { Redirect } from "react-router";
 import { TextField, Button, Container } from "@material-ui/core";
 
-const Login = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = "";
+class App extends Component {
+  state = {
+    username: "",
+    password: "",
+  };
 
-  const login = (event) => {
-    event.preventDefault();
+  handleTextChange = (e) => {
+    const state = { ...this.state };
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  };
+
+  login = (e) => {
+    e.preventDefault();
+    // set cookie here
+    // set loggedIn = true and max-age = 60*1000 (one minute)
+    document.cookie = "loggedIn=true;max-age=60*1000";
+
     window.location.replace("/");
   };
 
-  const handleUserName = (event) => {
-    setUsername(event.target.value);
-  };
+  render() {
+    return (
+      <div>
+        <Container maxWidth="sm">
+          <form
+            className="login-form"
+            onSubmit={this.login}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <TextField
+              required
+              onChange={this.handleTextChange}
+              value={this.state.username}
+              name="username"
+              label="Username"
+              type="text"
+            />
+            <TextField
+              required
+              onChange={this.handleTextChange}
+              value={this.state.password}
+              name="password"
+              label="Password"
+              type="password"
+            />
+            <Button
+              type="submit"
+              className="login-button"
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+          </form>
+        </Container>
+      </div>
+    );
+  }
+}
 
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
-  };
-};
+export default App;
