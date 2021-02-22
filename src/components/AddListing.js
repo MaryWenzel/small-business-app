@@ -1,11 +1,5 @@
-import React, { Component, Fragment, useState, useEffect } from "react";
-import {
-  Button,
-  TextField,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@material-ui/core";
+import React, { useState } from "react";
+import { Button, TextField } from "@material-ui/core";
 
 import Map from "../containers/Map";
 
