@@ -10,11 +10,8 @@ const Item = (props) => {
   );
 
   return (
-    <Container maxWidth="sm" className="listing-container">
-      <Paper
-        className="listing-paper"
-        style={{ height: "175px", width: "500px", marginBottom: "20px" }}
-      >
+    <Container maxWidth="sm">
+      <Paper style={{ height: "200px", width: "500px", marginBottom: "10px" }}>
         <h2>{listing.name}</h2>
         <h3>{listing.address}</h3>
         <h3>{listing.hours}</h3>
