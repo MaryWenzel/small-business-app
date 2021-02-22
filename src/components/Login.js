@@ -30,7 +30,12 @@ class App extends Component {
           <form
             className="login-form"
             onSubmit={this.login}
-            style={{ display: "flex", flexDirection: "column" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              height: "300px",
+            }}
           >
             <TextField
               required
