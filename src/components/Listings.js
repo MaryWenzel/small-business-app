@@ -25,7 +25,11 @@ const Listings = (props) => {
   }, []);
 
   return (
-    <Container maxWidth="lg" className="car-container">
+    <Container
+      maxWidth="md"
+      className="car-container"
+      style={{ marginTop: "50px" }}
+    >
       {console.log("listings", props.listings)}
 
       <Table>
@@ -54,10 +58,7 @@ const Listings = (props) => {
               <TableCell>{listing["address"]}</TableCell>
               {loggedIn ? (
                 <TableCell>
-                  <DeleteIcon
-                    onClick={() => props.removeListing(idx)}
-                    className="icon text-red"
-                  />
+                  <DeleteIcon onClick={() => props.removeListing(idx)} />
                 </TableCell>
               ) : null}
             </TableRow>
