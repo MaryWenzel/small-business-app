@@ -28,9 +28,7 @@ const AddListing = (props) => {
     const payload = { ...listing };
     payload.id = props.listings.length + 1;
     delete payload.open;
-    console.log("THE LISTING", payload);
     props.addListing(payload);
-    console.log("listing added!");
     props.history.push("/listings");
   };
 
@@ -40,12 +38,18 @@ const AddListing = (props) => {
         style={{
           display: "flex",
           alignItems: "flex-start",
-          marginTop: "100px",
+          marginTop: "10em",
         }}
       >
         <form
           onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", width: "50vh" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            width: "50vh",
+            height: "40vh",
+          }}
         >
           <TextField
             id="name"
